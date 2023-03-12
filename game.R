@@ -9,7 +9,7 @@ start <- 1:10
 
 
 sim_results <- function(){
-    steps=50
+    steps=100
     scorematrix_no_backsies <- matrix(0,nrow= 8, ncol=steps)
     scorematrix_monty_hall <- matrix(0,nrow= 8, ncol=steps)
     scorematrix_random <- matrix(0,nrow= 8, ncol=steps)
@@ -48,7 +48,7 @@ dataset |>
     )
 
 dataset |>
-    mutate(at_random=5e4/(contestants_left+1)) |>
+    mutate(at_random=1e4/(contestants_left+1)) |>
     pivot_longer(monty_hall:at_random,names_to="strategy",values_to="count") |>
     ggplot(aes(row_labels, count, color=strategy, group=strategy))+
     geom_line()+
@@ -56,10 +56,12 @@ dataset |>
         title="Strategieen voor WIDM",
         caption='50.000 potjes',
         x="ronde",
-        y="score"
+        y="score uit 50000"
     )
 
 dataset |>
-    mutate(at_random=5e4/(contestants_left+1)) %>% 
+    mutate(at_random=1e5/(contestants_left+1)) %>% 
+    pivot_longer(monty_hall:random_pick,names_to="strategy",values_to="count") 
+    
     filter(row_labels=="ronde 8")
 
